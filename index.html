@@ -789,6 +789,8 @@
     .pl-big { font-size: clamp(2.4rem, 9vw, 6.6rem); }
     .pl-brand { opacity: 0; font-size: 2.2rem; font-weight: 700; letter-spacing: 1.1em; text-indent: 1.1em; color: #818cf8; line-height: 1.02; }
     .pl-brand span { display: inline-block; }
+    /* HP: jarak antar huruf dipersempit agar "r" tidak keluar layar */
+    @media (max-width: 600px) { .pl-brand { font-size: clamp(1.5rem, 7.5vw, 2.2rem); letter-spacing: 0.55em; text-indent: 0.55em; } }
     .pl-loader { position: absolute; left: 50%; bottom: 12vh; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.8rem; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
     #preloader.waiting .pl-loader { opacity: 1; }
     #preloader.flying .pl-loader, #preloader.fade-out .pl-loader { opacity: 0; }
