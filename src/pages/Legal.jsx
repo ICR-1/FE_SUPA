@@ -9,7 +9,7 @@ const UPDATED = '14 Oktober 2026';
 const DOCS = {
   privacy: {
     title: 'Kebijakan Privasi',
-    intro: `Kebijakan ini menjelaskan data apa yang dikumpulkan saat Anda mengunjungi situs portofolio ${OWNER} (aufer.site), untuk apa data itu dipakai, dan bagaimana Anda dapat meminta penghapusannya.`,
+    intro: `Kebijakan ini menjelaskan data apa yang dikumpulkan saat Anda mengunjungi situs portofolio ${OWNER} (aufer.my.id), untuk apa data itu dipakai, dan bagaimana Anda dapat meminta penghapusannya.`,
     sections: [
       {
         h: '1. Data yang dikumpulkan',
@@ -76,7 +76,7 @@ const DOCS = {
   },
   terms: {
     title: 'Syarat & Ketentuan',
-    intro: `Dengan mengakses situs portofolio ${OWNER} (aufer.site), Anda menyetujui syarat berikut. Jika tidak setuju, mohon hentikan penggunaan situs ini.`,
+    intro: `Dengan mengakses situs portofolio ${OWNER} (aufer.my.id), Anda menyetujui syarat berikut. Jika tidak setuju, mohon hentikan penggunaan situs ini.`,
     sections: [
       {
         h: '1. Tentang situs',

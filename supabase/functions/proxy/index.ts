@@ -1,6 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 
-const ALLOWED_ORIGINS = ["https://aufer.site", "https://www.aufer.site", "http://localhost:5173"];
+const ALLOWED_ORIGINS = ["https://aufer.my.id", "https://www.aufer.my.id", "http://localhost:5173"];
 
 const corsHeaders = (origin: string | null) => ({
   "Access-Control-Allow-Origin": origin && (ALLOWED_ORIGINS.includes(origin) || /^https:\/\/[a-z0-9-]+\.vercel\.app$/.test(origin)) ? origin : ALLOWED_ORIGINS[0],

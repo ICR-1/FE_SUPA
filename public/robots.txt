@@ -4,4 +4,4 @@ Allow: /gamer-site
 Disallow: /login
 Disallow: /dashboard
 
-Sitemap: https://aufer.site/sitemap.xml
+Sitemap: https://aufer.my.id/sitemap.xml

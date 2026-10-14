@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     Sitemap({
-      hostname: 'https://aufer.site',
+      hostname: 'https://aufer.my.id',
       dynamicRoutes: ['/gamer-site', '/privacy', '/terms'],
       exclude: ['/login', '/login/admin', '/dashboard'],
     }),
