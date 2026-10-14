@@ -157,7 +157,7 @@ const PortfolioSection = () => {
     beforeChange: () => { if (!autoMove.current) lastInteract.current = Date.now(); },
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: Math.min(2, projects.length), slidesToScroll: 1 } },
-      { breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+      { breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, arrows: false } },
     ],
   };
 

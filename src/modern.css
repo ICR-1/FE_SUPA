@@ -586,9 +586,7 @@ body .pc-wrap .pc-dots li.slick-active button { width: 28px; background: var(--a
 }
 @media (max-width: 767px) {
   body .project-slider-container.pc-wrap { padding: 0 6px; }
-  .pc-arrow { width: 40px; height: 40px; top: calc(50% - 84px); }
-  .pc-arrow-prev { left: 12px; }
-  .pc-arrow-next { right: 12px; }
+  .pc-arrow { display: none !important; }
   .pcard-zoom { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
