@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <script>
+    try {
+      if (location.pathname === '/' && !sessionStorage.getItem('introSeen') &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('intro', 'intro-lock');
+      }
+    } catch (e) {}
+  </script>
+  <meta charset="UTF-8" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-08JZ0RGZE1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    // Initial check for non-SPA navigation or direct entry
+    if (window.location.pathname === '/' || window.location.pathname === '/gamer-site') {
+      gtag('config', 'G-08JZ0RGZE1');
+    }
+  </script>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aufer Site | Web Developer Portfolio</title>
+  <meta name="description"
+    content="Portofolio resmi Ferry Maulana Malik Ibrahim (Aufer). Seorang Web Developer yang berfokus pada pembuatan pengalaman web 3D interaktif dan modern." />
+  <meta name="keywords"
+    content="Aufer, Ferry Maulana Malik Ibrahim, Web Developer, Portofolio, 3D Web, React, Vite, Programmer Indonesia" />
+  <meta name="author" content="Ferry Maulana Malik Ibrahim" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aufer.site/" />
+  <meta property="og:title" content="Aufer Site | Web Developer Portfolio" />
+  <meta property="og:description"
+    content="Portofolio resmi Ferry Maulana Malik Ibrahim (Aufer). Pengalaman web 3D interaktif dan modern." />
+  <meta property="og:image" content="https://aufer.site/1311583.jpg" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://aufer.site/" />
+  <meta property="twitter:title" content="Aufer Site | Web Developer Portfolio" />
+  <meta property="twitter:description"
+    content="Portofolio resmi Ferry Maulana Malik Ibrahim (Aufer). Pengalaman web 3D interaktif dan modern." />
+  <meta property="twitter:image" content="https://aufer.site/1311583.jpg" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css');
+
+    /* ============ NAVBAR ============ */
+    #main-navbar {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, calc(100% - 2rem));
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem 0 0.9rem;
+      height: 60px;
+      background: rgba(10, 9, 30, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      transition: background 0.3s, transform 0.35s ease;
+    }
+
+    #main-navbar.scrolled {
+      background: rgba(10, 9, 30, 0.95);
+    }
+
+    /* Sembunyi saat scroll ke bawah */
+    #main-navbar.nav-hidden {
+      transform: translate(-50%, calc(-100% - 24px));
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .nav-logo span {
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #4c6ef5, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    /* Desktop menu */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      color: #aaa6c3;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #fff;
+      background: rgba(76, 110, 245, 0.15);
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background: #4c6ef5;
+      border-radius: 50%;
+    }
+
+    /* Burger button */
+    #burger-btn {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 38px;
+      height: 38px;
+      background: rgba(76, 110, 245, 0.12);
+      border: 1px solid rgba(76, 110, 245, 0.25);
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 0;
+      transition: all 0.2s;
+    }
+
+    #burger-btn:hover {
+      background: rgba(76, 110, 245, 0.25);
+    }
+
+    .burger-line {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    #burger-btn.open .burger-line:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    #burger-btn.open .burger-line:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    #burger-btn.open .burger-line:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile sidebar overlay */
+    #sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 190;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    #sidebar-overlay.open {
+      opacity: 1;
+    }
+
+    /* Sidebar panel */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 260px;
+      height: 100dvh;
+      background: rgba(12, 11, 38, 0.98);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+      z-index: 195;
+      padding: 80px 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      transition: right 0.35s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    #sidebar.open {
+      right: 0;
+    }
+
+    .sidebar-link {
+      color: #ccc;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .sidebar-link:hover {
+      color: #fff;
+      background: rgba(76, 110, 245, 0.15);
+    }
+
+    .sidebar-link.active {
+      color: #fff;
+      background: rgba(76, 110, 245, 0.2);
+      border-left: 3px solid #4c6ef5;
+    }
+
+    @media (max-width: 768px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      #burger-btn {
+        display: flex;
+      }
+    }
+
+    /* Skeleton Loading UI */
+    .skeleton {
+      background-color: rgba(255, 255, 255, 0.05);
+      background-image: linear-gradient(90deg,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.05) 20%,
+          rgba(255, 255, 255, 0.1) 60%,
+          rgba(255, 255, 255, 0));
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite linear;
+      border-radius: 0.5rem;
+    }
+
+    @keyframes shimmer {
+      from {
+        background-position: 200% 0;
+      }
+
+      to {
+        background-position: -200% 0;
+      }
+    }
+
+    .skeleton-card {
+      height: 320px;
+      width: 100%;
+      padding: 1rem;
+      background: rgba(21, 20, 50, 0.4);
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .skeleton-image {
+      height: 180px;
+      margin-bottom: 1rem;
+    }
+
+    .skeleton-title {
+      height: 24px;
+      width: 80%;
+      margin: 0 auto 0.75rem;
+    }
+
+    .skeleton-text {
+      height: 16px;
+      width: 60%;
+      margin: 0 auto;
+    }
+
+    /* Slick Custom Styles */
+    .slick-dots {
+      bottom: -40px;
+    }
+
+    .slick-dots li button:before {
+      color: #fff !important;
+      font-size: 12px;
+      opacity: 0.5 !important;
+    }
+
+    .slick-dots li.slick-active button:before {
+      color: #fff !important;
+      opacity: 1 !important;
+    }
+
+    .slick-prev,
+    .slick-next {
+      z-index: 20;
+      width: 46px;
+      height: 46px;
+      background: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      border-radius: 50%;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slick-prev:hover,
+    .slick-next:hover {
+      background: #4c6ef5 !important;
+      border-color: #4c6ef5 !important;
+      box-shadow: 0 0 25px rgba(76, 110, 245, 0.5);
+    }
+
+    .slick-prev::before,
+    .slick-next::before {
+      font-size: 24px !important;
+      opacity: 0.9 !important;
+      transition: all 0.3s !important;
+      color: #fff !important;
+    }
+
+    .slick-prev {
+      left: -60px;
+    }
+
+    .slick-next {
+      right: -60px;
+    }
+
+    /* Hide on mobile */
+    @media (max-width: 1024px) {
+
+      .slick-prev,
+      .slick-next {
+        display: none !important;
+      }
+    }
+
+    /* Certificate Grid Styles */
+    .certificate-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .certificate-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .certificate-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .certificate-card {
+      background: rgba(21, 20, 50, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      padding: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .certificate-card:hover {
+      border-color: rgba(76, 110, 245, 0.5);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .certificate-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Load More Button Styles */
+    .load-more-container {
+      display: flex;
+      justify-content: flex-start;
+      margin-top: 2rem;
+    }
+
+    .btn-load-more {
+      background: #4c6ef5;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-load-more:hover {
+      background: #3b5bdb;
+    }
+
+    /* Portfolio Slider Styles */
+    .project-slider-container {
+      margin-top: 3rem;
+      padding: 0 52px;
+    }
+
+    .project-card {
+      margin: 0 10px;
+    }
+
+    @media (max-width: 768px) {
+      .project-slider-container {
+        padding: 0 15px !important;
+      }
+    }
+
+    /* ============ UPGRADED CERT CARD ============ */
+    .certificate-card {
+      background: rgba(21, 20, 50, 0.9);
+      /* Solid color instead of blur */
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1.25rem;
+      padding: 1.25rem;
+      transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+    }
+
+    .certificate-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(76, 110, 245, 0.12), rgba(167, 139, 250, 0.08));
+      opacity: 0;
+      transition: opacity 0.35s;
+      border-radius: inherit;
+    }
+
+    .certificate-card:hover::before {
+      opacity: 1;
+    }
+
+    .certificate-card:hover {
+      border-color: rgba(76, 110, 245, 0.45);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(76, 110, 245, 0.2);
+    }
+
+    .certificate-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      margin-bottom: 0.85rem;
+      transition: transform 0.35s;
+    }
+
+    .certificate-card:hover img {
+      transform: scale(1.03);
+    }
+
+    .cert-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(76, 110, 245, 0.95);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ============ UPGRADED PROJECT CARD ============ */
+    .proj-card-inner {
+      width: 100%;
+      border-radius: 1.25rem;
+      overflow: hidden;
+      background: linear-gradient(160deg, rgba(21, 20, 50, 0.8) 0%, rgba(30, 27, 70, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 480px;
+      position: relative;
+    }
+
+    /* Entire card overlay - GamerSite Style Sliding Fill */
+    .proj-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(76, 110, 245, 0.7), rgba(16, 14, 46, 0.75));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 20;
+      transform: translateY(100%);
+    }
+
+    .proj-card-inner:hover .proj-card-overlay {
+      transform: translateY(0);
+    }
+
+    .view-btn-container {
+      /* Adjust button to be more like GamerSite buttons */
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease 0.1s;
+    }
+
+    .proj-card-inner:hover .view-btn-container {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .view-btn-container span {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .proj-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-img-wrap img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(.4, 0, .2, 1);
+      display: block;
+    }
+
+    .proj-img-overlay {
+      display: none;
+      /* Replaced by card overlay */
+    }
+
+    .proj-zoom-hint {
+      display: none;
+      /* Replaced by card overlay */
+    }
+
+    .proj-body {
+      padding: 1.25rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-title {
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .proj-desc {
+      color: #aaa6c3;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      /* Limit to 4 lines for consistency */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 5.5rem;
+      /* Ensure consistent spacing */
+    }
+
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .proj-tag {
+      padding: 3px 10px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 20px;
+      background: rgba(76, 110, 245, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(76, 110, 245, 0.25);
+      letter-spacing: 0.3px;
+    }
+
+    /* Animated title underline */
+    .animated-underline {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 8px;
+    }
+
+    .animated-underline::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(to right, #4c6ef5, #3b5bdb);
+      transform: translateX(0);
+      transition: width 1s ease;
+      border-radius: 2px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .animated-underline.active::after {
+      width: 100%;
+    }
+
+    /* Biarkan judul section awal/akhir di tengah */
+    .text-center .animated-underline::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Tapi untuk judul di bagian about dengan text-align yang berubah, sesuaikan posisi garis */
+    @media (min-width: 768px) {
+      .md\:text-left .animated-underline::after {
+        left: 0;
+        transform: translateX(0);
+      }
+    }
+
+
+    /* ============ CONTACT CARDS ============ */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 640px) {
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-method-card {
+      background: rgba(21, 20, 50, 0.6);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1.25rem;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      transition: all 0.35s cubic-bezier(.4, 0, .2, 1);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .contact-method-card:hover {
+      border-color: rgba(76, 110, 245, 0.5);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .contact-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: all 0.35s;
+    }
+
+    /* WA */
+    .wa-card:hover .contact-icon-wrap {
+      background: #25d366;
+      color: white;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+    }
+
+    .wa-card .contact-icon-wrap {
+      color: #25d366;
+      background: rgba(37, 211, 102, 0.1);
+    }
+
+    /* IG */
+    .ig-card:hover .contact-icon-wrap {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+      box-shadow: 0 0 20px rgba(220, 39, 67, 0.5);
+    }
+
+    .ig-card .contact-icon-wrap {
+      color: #dc2743;
+      background: rgba(220, 39, 67, 0.1);
+    }
+
+    /* Gmail */
+    .gm-card:hover .contact-icon-wrap {
+      background: #ea4335;
+      color: white;
+      box-shadow: 0 0 20px rgba(234, 67, 53, 0.5);
+    }
+
+    .gm-card .contact-icon-wrap {
+      color: #ea4335;
+      background: rgba(234, 67, 53, 0.1);
+    }
+
+    .contact-method-card h3 {
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-method-card p {
+      color: #aaa6c3;
+      font-size: 0.85rem;
+    }
+
+    /* ============ PRELOADER / INTRO ============ */
+    #preloader { position: fixed; inset: 0; z-index: 99999; color: #fff; font-family: 'Poppins', sans-serif; transition: opacity 0.6s ease, visibility 0.6s; }
+    #preloader.fade-out { opacity: 0; visibility: hidden; }
+    .pl-bg { position: absolute; inset: 0; background: #050816; }
+    .pl-stage { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    #preloader.flying .pl-stage { overflow: visible; }
+    .pl-word, .pl-brand { position: absolute; top: 50%; left: 50%; white-space: nowrap; text-align: center; will-change: transform, opacity, filter; }
+    .pl-word { opacity: 0; font-weight: 800; letter-spacing: -0.015em; line-height: 1.1; }
+    .pl-big { font-size: clamp(2.4rem, 9vw, 6.6rem); }
+    .pl-brand { opacity: 0; font-size: 2.2rem; font-weight: 700; letter-spacing: 1.1em; text-indent: 1.1em; color: #818cf8; line-height: 1.02; }
+    .pl-brand span { display: inline-block; }
+    .pl-loader { position: absolute; left: 50%; bottom: 12vh; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.8rem; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; }
+    #preloader.waiting .pl-loader { opacity: 1; }
+    #preloader.flying .pl-loader, #preloader.fade-out .pl-loader { opacity: 0; }
+    .pl-loader-bar { position: relative; width: 120px; height: 2px; border-radius: 2px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+    .pl-loader-bar::after { content: ''; position: absolute; inset: 0; width: 40%; border-radius: 2px; background: #818cf8; animation: plSlide 1.1s ease-in-out infinite; }
+    .pl-loader-text { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: #94a3b8; }
+    @keyframes plSlide { 0% { transform: translateX(-100%); } 100% { transform: translateX(300%); } }
+    html.intro-lock, html.intro-lock body { overflow: hidden; }
+    /* Elemen hero disembunyikan hanya selama mode intro; GSAP yang menampilkannya */
+    html.intro .hero-badge, html.intro #hero-title, html.intro #hero-subtitle, html.intro #hero-button,
+    html.intro .btn-ghost, html.intro #scroll-indicator, html.intro .hero-orbit { opacity: 0; }
+    .hero-orbit { transition: opacity 2s ease; }
+    /* jaring pengaman bila skrip gagal */
+    html.intro .hero-badge, html.intro #hero-title, html.intro #hero-subtitle, html.intro #hero-button,
+    html.intro .btn-ghost, html.intro #scroll-indicator, html.intro .hero-orbit { animation: introFailsafe 0s 14s forwards; }
+    @keyframes introFailsafe { to { opacity: 1; } }
+    .hero-char-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+    .hero-char { display: inline-block; will-change: transform; }
+    .hero-char-space { display: inline-block; width: 0.28em; }
+
+  </style>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="font-poppins" style="background-color: #050816;">
+  <!-- Preloader / intro: kata-kata muncul satu per satu, lalu "Aufer" terbang ke judul hero -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pl-bg" id="pl-bg"></div>
+    <div class="pl-stage">
+      <div class="pl-word pl-big">Hello World</div>
+      <div class="pl-word pl-big">Welcome to</div>
+      <div class="pl-brand" id="pl-brand" aria-hidden="true"></div>
+    </div>
+    <div class="pl-loader" aria-hidden="true"><span class="pl-loader-bar"></span><span class="pl-loader-text">Memuat</span></div>
+  </div>
+
+  <div id="canvas-container" class="fixed top-0 left-0 w-full h-screen" style="z-index: -1;"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="nav-hidden">
+    <a href="#" class="nav-logo"><img src="/apple-touch-icon.png" alt="Logo Aufer" width="36" height="36"><span>Aufer</span></a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/#about" data-section="about">About</a></li>
+      <li><a href="/#skills" data-section="skills">Skills</a></li>
+      <li><a href="/#portfolio" data-section="portfolio">Portfolio</a></li>
+      <li><a href="/#contact" data-section="contact">Contact</a></li>
+      <li><a href="/gamer-site" class="text-blue-400 font-semibold hover:text-blue-300">Gamer Site</a></li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:0.75rem">
+      <button id="burger-btn" aria-label="Toggle menu">
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+        <span class="burger-line"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Sidebar overlay -->
+  <div id="sidebar-overlay"></div>
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <nav style="display:flex;flex-direction:column;gap:0.4rem">
+      <a href="/#about" class="sidebar-link" data-section="about">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+        </svg>
+        About
+      </a>
+      <a href="/#skills" class="sidebar-link" data-section="skills">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+        Skills
+      </a>
+      <a href="/#portfolio" class="sidebar-link" data-section="portfolio">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+        </svg>
+        Portfolio
+      </a>
+      <a href="/#contact" class="sidebar-link" data-section="contact">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M4 4h16v13a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+          <polyline points="4,4 12,13 20,4" />
+        </svg>
+        Contact
+      </a>
+      <a href="/gamer-site" class="sidebar-link text-blue-400">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="6" width="20" height="12" rx="2" />
+          <path d="M6 12h4M8 10v4M15 11v.01M18 13v.01" />
+        </svg>
+        Gamer Site
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="relative w-full h-screen flex flex-col items-center justify-center px-6 md:px-16"
+    style="padding-top:64px">
+    <div class="hero-orbit" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="max-w-7xl mx-auto text-center z-10">
+      <div class="hero-badge"><span class="dot"></span>Tech Enthusiast</div>
+      <h1
+        class="text-4xl sm:text-6xl lg:text-8xl font-bold text-white-100 mb-4"
+        id="hero-title">
+        <span>Aufer Site</span>
+      </h1>
+      <p class="text-xl sm:text-2xl text-secondary mb-8"
+        id="hero-subtitle">
+        <span id="changing-text" class="block min-h-[2rem]">Web Developer</span>
+      </p>
+      <div class="hero-cta">
+        <button
+          class="text-white font-medium"
+          id="hero-button">
+          <span class="lang-text" data-lang-id="view-portfolio">Lihat Portofolio</span>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </button>
+        <a href="/#contact" class="btn-ghost">Hubungi Saya</a>
+      </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2" id="scroll-indicator">
+      <div class="w-8 h-12 rounded-full border-2 border-secondary flex justify-center pt-2">
+        <div class="w-1 h-3 bg-white-100 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="relative w-full min-h-screen flex items-center z-10 px-6 md:px-16 py-20">
+    <div id="about-root" class="w-full"></div>
+  </section>
+
+  <!-- CV Options Modal (hidden by default) - Moved outside of the About section -->
+  <div id="cv-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 hidden overflow-y-auto">
+    <div
+      class="bg-tertiary p-6 rounded-xl max-w-md w-full mx-4 my-8 transform transition-all duration-300 scale-95 opacity-0 max-h-[90vh] overflow-y-auto"
+      id="cv-modal-content">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-2xl font-bold text-white-100 lang-text" data-lang-id="choose-cv">Pilih CV</h3>
+        <button id="close-cv-modal"
+          class="text-white hover:text-gray-300 transition-colors p-2 bg-black-200 hover:bg-tertiary rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <a href="https://drive.google.com/file/d/1HyMIvMcw4_uj6OQhq07UCHq6OQ8mWucK/view?usp=sharing" target="_blank"
+          class="bg-blue-600 hover:bg-blue-700 text-white py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex flex-col items-center justify-center text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          </svg>
+          <span class="font-medium lang-text" data-lang-id="cv1">CV 1</span>
+        </a>
+        <a href="https://drive.google.com/file/d/1lvKnlyrCaV9Z9c2t66lOKSiycp1HavRq/view" target="_blank"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex flex-col items-center justify-center text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mb-2" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          </svg>
+          <span class="font-medium lang-text" data-lang-id="cv2">CV 2</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Content (Skills, Certificates, Projects) -->
+  <div id="root"></div>
+  <!-- Skills Section -->
+  <section id="skills" class="relative w-full min-h-screen flex items-center z-10 px-6 md:px-16 py-20 bg-transparent">
+    <div id="skills-root" class="w-full"></div>
+  </section>
+
+  <!-- 3D Model Section -->
+  <section class="relative w-full min-h-screen flex items-center z-10 px-6 md:px-16 py-20">
+    <div class="max-w-7xl mx-auto text-center">
+      <span class="section-eyebrow center">Interaktif</span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white-100 mb-4 model-title opacity-0">
+        <span class="animated-underline lang-text" data-lang-id="solar-system">Model Tata Surya 3D</span>
+      </h2>
+      <div id="indonesia-time" class="text-secondary mb-8 text-lg font-medium opacity-0">
+        <span id="day-name">Hari</span>, <span id="date-num">00</span> <span id="month-name">Bulan</span> <span
+          id="year-num">0000</span> | <span id="time-display">00:00:00</span>
+      </div>
+      <div id="model-container" class="w-full rounded-xl overflow-hidden bg-black-200 opacity-0 mx-auto"></div>
+      <p class="text-secondary mt-6 text-center model-description opacity-0 lang-text" data-lang-id="model-desc">
+        Seret untuk memutar, scroll untuk zoom, dan klik sebuah planet untuk melihat detailnya. Orbit dibuat elips,
+        lengkap dengan bulan Bumi, cincin Saturnus, dan sabuk asteroid.
+      </p>
+    </div>
+  </section>
+
+  <!-- Portfolio Gallery Section -->
+  <section id="portfolio" class="bg-transparent py-16 md:py-24 relative z-10">
+    <div id="portfolio-root" class="w-full"></div>
+  </section>
+
+
+  <!-- Contact Section -->
+  <section id="contact" class="relative w-full z-10 px-6 md:px-16 pt-24 pb-20">
+    <div class="max-w-4xl mx-auto w-full">
+      <div class="text-center"><span class="section-eyebrow center">05 · Kontak</span></div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white-100 mb-4 text-center contact-title opacity-0">
+        <span class="animated-underline">Hubungi Saya</span>
+      </h2>
+      <p class="contact-lead">Punya proyek, ide kolaborasi, atau sekadar ingin menyapa? Temukan Ferry di sosial media, atau kirim pesan langsung lewat formulir ini.</p>
+
+      <div class="contact-card contact-form opacity-0">
+        <div class="cc-col">
+          <h3 class="cc-title">Temukan saya</h3>
+          <div class="cc-icons">
+          <a href="mailto:ferrymaulanamalikibrahim@gmail.com" class="cc-icon" data-label="Email" aria-label="Email"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 5.457v13.909c0 .904-.732 1.634-1.634 1.634h-2.301V10.766L12 16.337l-8.065-5.571v10.233H1.634C.732 21 0 20.27 0 19.366V5.457c0-1.298 1.436-2.03 2.486-1.304L12 10.667l9.514-6.514C22.564 3.427 24 4.159 24 5.457z"/></svg></a>
+          <a href="https://wa.me/6285712491089" target="_blank" rel="noopener noreferrer" class="cc-icon" data-label="WhatsApp" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.406.836 2.964 1.282 4.551 1.285 5.03.003 9.123-4.089 9.125-9.117.001-2.438-.946-4.731-2.667-6.453s-4.011-2.668-6.453-2.669c-5.032 0-9.123 4.091-9.125 9.12-.001 1.739.499 3.426 1.446 4.888l-.96 3.507 3.583-.941z"/><path d="M17.476 14.391c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.67-1.611-.918-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+          <a href="https://www.instagram.com/fer.overdose" target="_blank" rel="noopener noreferrer" class="cc-icon" data-label="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://github.com/ICR-1" target="_blank" rel="noopener noreferrer" class="cc-icon" data-label="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://www.linkedin.com/in/auferwaker/" target="_blank" rel="noopener noreferrer" class="cc-icon" data-label="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://www.youtube.com/@Aufer" target="_blank" rel="noopener noreferrer" class="cc-icon" data-label="YouTube" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          </div>
+        </div>
+
+        <div class="cc-sep" aria-hidden="true"></div>
+
+        <form class="cc-col mail-form" id="mail-form" novalidate>
+          <h3 class="cc-title">Kirim pesan</h3>
+          <div class="mf-grid">
+            <div class="mf-field">
+              <label for="mail-name" class="sr-only">Nama Anda</label>
+              <input id="mail-name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Nama Anda" required />
+            </div>
+            <div class="mf-field">
+              <label for="mail-input" class="sr-only">Email Anda</label>
+              <input id="mail-input" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" placeholder="Email Anda" required />
+            </div>
+          </div>
+          <div class="mf-field">
+            <label for="mail-message" class="sr-only">Pesan Anda</label>
+            <textarea id="mail-message" name="message" rows="5" maxlength="1000" placeholder="Pesan Anda" required></textarea>
+            <span class="mf-count" id="mail-count" aria-hidden="true">0/1000</span>
+          </div>
+          <input type="text" name="website" class="mail-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <div class="mf-foot">
+            <p class="mail-status" id="mail-status" role="status" aria-live="polite">Saya akan membalas lewat email.</p>
+            <button type="submit" class="mail-btn" id="mail-btn"><span>Kirim Pesan</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-foot relative z-10">
+    <div class="foot-inner">
+      <div class="foot-grid">
+        <div class="foot-col foot-about">
+          <a href="#" class="foot-brand" aria-label="Kembali ke atas">
+            <img src="/apple-touch-icon.png" alt="" width="40" height="40" />
+            <span>Aufer</span>
+          </a>
+          <p class="foot-blurb">Web developer dengan minat pada pengembangan 3D interaktif, hardware, dan IoT.</p>
+          <div class="foot-socials">
+          <a href="https://www.instagram.com/fer.overdose" target="_blank" rel="noopener noreferrer" class="foot-social" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://www.linkedin.com/in/auferwaker/" target="_blank" rel="noopener noreferrer" class="foot-social" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://github.com/ICR-1" target="_blank" rel="noopener noreferrer" class="foot-social" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://www.youtube.com/@Aufer" target="_blank" rel="noopener noreferrer" class="foot-social" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 4-8 4z" fill-rule="evenodd" clip-rule="evenodd"/></svg></a>
+          <a href="https://wa.me/6285712491089" target="_blank" rel="noopener noreferrer" class="foot-social" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.406.836 2.964 1.282 4.551 1.285 5.03.003 9.123-4.089 9.125-9.117.001-2.438-.946-4.731-2.667-6.453s-4.011-2.668-6.453-2.669c-5.032 0-9.123 4.091-9.125 9.12-.001 1.739.499 3.426 1.446 4.888l-.96 3.507 3.583-.941z"/><path d="M17.476 14.391c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.67-1.611-.918-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+          </div>
+        </div>
+
+        <nav class="foot-col" aria-label="Navigasi">
+          <h4>Navigasi</h4>
+          <a href="#">Beranda</a>
+          <a href="#about">Tentang Saya</a>
+          <a href="#skills">Tech Stack</a>
+          <a href="#portfolio">Proyek</a>
+          <a href="#contact">Kontak</a>
+          <a href="/gamer-site">Gamer Site</a>
+        </nav>
+
+        <div class="foot-col">
+          <h4>Kontak</h4>
+          <a class="foot-contact" href="mailto:ferrymaulanamalikibrahim@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><span>ferrymaulanamalikibrahim@gmail.com</span></a>
+          <a class="foot-contact" href="tel:+6285712491089"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg><span>+62 857 1249 1089</span></a>
+          <span class="foot-contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span>Indonesia (WIB, UTC+7)</span></span>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span>© <span id="foot-year">2026</span> Ferry Maulana Malik Ibrahim. Semua hak dilindungi.</span>
+        <span>Dibuat dengan <span id="tech-stack-text" class="text-blue-500 font-medium">HTML</span></span>
+        <a href="#" class="foot-up">Kembali ke atas ↑</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script type="module" src="/src/main.jsx"></script>
+
+
+  <!-- Halaman Terima Kasih (Hidden by default) -->
+  <div id="thank-you-page" class="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center hidden">
+    <div class="bg-tertiary p-8 rounded-xl max-w-md w-full text-center transform">
+      <div class="bg-green-500 bg-opacity-20 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h2 class="text-2xl font-bold text-white-100 mb-4 lang-text" data-lang-id="thank-you">Terima Kasih!</h2>
+      <p class="text-secondary mb-6 lang-text" data-lang-id="thank-you-message">Pesan Anda telah berhasil terkirim ke
+        Ferry Maulana Malik Ibrahim. Saya akan menghubungi Anda kembali secepatnya.</p>
+      <div class="flex justify-center">
+        <button id="thank-you-close"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-all duration-300 flex items-center">
+          <span class="lang-text" data-lang-id="back-to-portfolio">Kembali ke Portofolio</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

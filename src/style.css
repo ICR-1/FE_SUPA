@@ -1,0 +1,1136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide all scrollbars */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile overrides */
+@media (max-width: 768px) {
+  body {
+    touch-action: pan-y !important; /* Pastikan scrolling vertikal selalu berfungsi */
+    height: auto;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  html {
+    overflow-y: auto !important;
+    touch-action: pan-y !important;
+    height: auto;
+  }
+  
+  section {
+    touch-action: pan-y !important;
+    overflow: visible;
+  }
+  
+  .custom-cursor {
+    display: none !important; /* Benar-benar nonaktifkan custom cursor pada mobile */
+  }
+}
+
+
+/* Portfolio Carousel */
+.portfolio-section {
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+  overflow: hidden;
+  touch-action: auto; /* Ubah dari pan-y ke auto untuk scrolling normal */
+}
+
+.hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+#portfolio-carousel {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  cursor: grab;
+  will-change: transform, scroll-position;
+  transform: translateZ(0);
+  padding-bottom: 20px;
+  overscroll-behavior-x: none; /* Mencegah navigasi browser back/forward saat swipe */
+  touch-action: pan-x touch-pinch-zoom !important;
+  -webkit-user-select: none; /* Mencegah seleksi teks saat drag */
+  user-select: none;
+  scroll-snap-type: x mandatory;
+}
+
+#portfolio-carousel:active {
+  cursor: grabbing;
+}
+
+/* Show desktop navigation buttons only on desktop */
+@media (min-width: 769px) {
+  /* Hide swipe instruction on desktop */
+  .swipe-instruction {
+    display: none !important;
+  }
+  
+  /* Portfolio item sizing for desktop */
+  .portfolio-item {
+    width: 350px !important;
+    min-width: 350px;
+    margin-right: 20px;
+  }
+}
+
+/* Hide mobile navigation on mobile */
+@media (max-width: 768px) {
+  /* Show swipe instruction */
+  .swipe-instruction {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  
+  /* Adjust portfolio carousel for full-swipe on mobile */
+  #portfolio-carousel {
+    padding: 0 8px 20px 8px;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  .portfolio-item {
+    touch-action: pan-y !important;
+    margin-bottom: 10px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    min-width: 260px;
+    max-width: 90vw;
+    width: 85vw !important;
+    margin-right: 16px;
+  }
+  
+  /* Pastikan container utama mengizinkan scroll normal */
+  body, html {
+    touch-action: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Perbaikan tambahan mobile scrolling */
+  #portfolio-carousel {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.carousel-indicator {
+  width: 30px;
+  height: 6px;
+  background-color: var(--color-black-200);
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background-color: var(--color-primary);
+  transition: width 0.3s ease;
+}
+
+.carousel-indicator.active {
+  background-color: var(--color-black-100);
+}
+
+.carousel-indicator.active::after {
+  width: 100%;
+}
+
+.carousel-indicator:hover {
+  background-color: var(--color-black-100);
+}
+
+.carousel-indicator:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Portfolio item dengan tombol view */
+.portfolio-item {
+  transition: transform 0.5s ease, opacity 0.6s ease;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-item:hover {
+  transform: translateY(-5px);
+}
+
+.portfolio-item .image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-item .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.portfolio-item:hover .overlay {
+  opacity: 1;
+}
+
+.view-button {
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: auto;
+}
+
+.view-button:hover {
+  background-color: #4361ee;
+  transform: translateY(0) scale(1.05);
+}
+
+.view-button:active {
+  transform: translateY(0) scale(0.95);
+}
+
+.portfolio-item:hover .view-button {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Mobile adjustments for view button */
+@media (max-width: 768px) {
+  .portfolio-item .overlay {
+    background: rgba(0, 0, 0, 0.7);
+  }
+  
+  .view-button {
+    transform: translateY(0);
+    opacity: 0;
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+  
+  .portfolio-item:active .overlay,
+  .portfolio-item:focus .overlay {
+    opacity: 1;
+  }
+  
+  .portfolio-item:active .view-button,
+  .portfolio-item:focus .view-button {
+    opacity: 1;
+  }
+}
+
+/* Responsif untuk model 3D */
+#model-container {
+  height: 500px;
+  max-height: 60vh;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  #model-container {
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  #model-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    margin: 0 auto;
+    touch-action: pan-x pan-y !important;
+  }
+  
+  .portfolio-item .overlay {
+    opacity: 0; /* Awalnya sembunyi di mobile */
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .view-button {
+    opacity: 0; /* Awalnya sembunyi di mobile */
+    transform: translateY(0);
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+  
+  /* Tampilkan tombol View hanya saat item di-tap */
+  .portfolio-item:active .overlay,
+  .portfolio-item:focus .overlay,
+  .portfolio-item:active .view-button,
+  .portfolio-item:focus .view-button {
+    opacity: 1;
+  }
+  
+  /* Penyesuaian tambahan untuk mobile */
+  #portfolio-carousel {
+    gap: 15px;
+    padding: 5px 0 20px 0;
+  }
+  
+  .portfolio-item {
+    width: 280px !important;
+    min-width: 280px !important;
+    margin: 0 auto;
+  }
+  
+  /* Tingkatkan ukuran tombol View di mobile untuk area tap yang lebih besar */
+  .view-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+}
+
+.shadow-card {
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Touch Indicator Animation */
+@media (max-width: 768px) {
+  .carousel-indicator {
+    width: 20px;
+    height: 4px;
+  }
+  
+  .carousel-nav-button {
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+    margin: 0 8px;
+    z-index: 20;
+  }
+  
+  /* Tambahkan padding di carousel untuk ruang lebih banyak saat sentuhan */
+  #portfolio-carousel {
+    padding: 5px 5px 20px 5px;
+    margin: 0 -5px;
+    scroll-snap-type: x mandatory; /* Memastikan snap ke item saat scroll selesai */
+  }
+  
+  /* Berikan ruang untuk area sentuhan yang lebih luas */
+  .portfolio-item {
+    touch-action: pan-x;
+    margin-bottom: 10px;
+    scroll-snap-align: center; /* Snap ke tengah item */
+    scroll-snap-stop: always; /* Selalu snap ke item (tidak skip) */
+  }
+  
+  /* Feedback visual saat sentuhan */
+  .portfolio-item:active {
+    transform: scale(0.98);
+  }
+  
+  /* Tambahkan indikator swipe untuk membantu pengguna */
+  .portfolio-section:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 15px;
+    height: 15px;
+    border-right: 3px solid rgba(255, 255, 255, 0.4);
+    border-top: 3px solid rgba(255, 255, 255, 0.4);
+    transform: translateY(-50%) rotate(45deg);
+    animation: swipeHint 1.5s infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  @keyframes swipeHint {
+    0% {
+      opacity: 0;
+      right: 30px;
+    }
+    50% {
+      opacity: 1;
+      right: 20px;
+    }
+    100% {
+      opacity: 0;
+      right: 10px;
+    }
+  }
+  
+  /* Menambahkan lebih banyak ruang di area yang aktif untuk ditekan */
+  .carousel-indicator {
+    position: relative;
+  }
+  
+  .carousel-indicator:after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    z-index: -1;
+  }
+}
+
+/* Animasi yang lebih halus */
+@media (prefers-reduced-motion: no-preference) {
+  .portfolio-item {
+    will-change: transform, opacity;
+  }
+  
+  #portfolio-carousel {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Preloader */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #050816;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.preloader-content {
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(170, 166, 195, 0.3);
+  border-radius: 50%;
+  border-top-color: #4c6ef5;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  color: #aaa6c3;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Interaction helper for 3D model */
+.interaction-helper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(21, 16, 48, 0.8);
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #aaa6c3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.8;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.interaction-icon {
+  display: flex;
+  animation: pulse 2s infinite;
+}
+
+.fadeout {
+  opacity: 0;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Transition for scroll animations */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Skill card hover effect */
+.skill-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Active section highlighting */
+.active-section {
+  position: relative;
+}
+
+.active-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 5px;
+  height: 30%;
+  background: linear-gradient(to bottom, transparent, #4c6ef5, transparent);
+  top: 35%;
+  opacity: 0.7;
+}
+
+/* Social media links */
+.social-link {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-3px);
+}
+
+.social-link svg {
+  transition: fill 0.3s ease;
+}
+
+/* Kontak Ikon Style */
+.contact-info {
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.contact-info:hover {
+  transform: translateX(3px);
+  color: var(--color-white-100);
+}
+
+.contact-info:hover svg {
+  stroke: var(--color-primary);
+}
+
+.contact-info svg {
+  transition: stroke 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .active-section::after {
+    display: none;
+  }
+  
+  #canvas-container canvas {
+    opacity: 0.7; /* Make background less prominent on mobile */
+  }
+  
+  .skill-card:hover {
+    transform: none; /* Disable hover effect on mobile */
+  }
+}
+
+/* Improve image loading */
+img {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+img.loading {
+  opacity: 0;
+}
+
+/* Better button styles */
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(100, 100);
+    opacity: 0;
+  }
+}
+
+button:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+/* Ripple Effect */
+.ripple {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transform: scale(0);
+  animation: ripple 0.5s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.swipe-instruction {
+  transition: opacity 0.5s ease;
+  animation: fadeInOut 3s ease-in-out infinite;
+  color: rgba(170, 166, 195, 0.8);
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Changing text animation */
+#changing-text {
+  min-height: 2rem;
+  display: inline-block;
+  position: relative;
+  will-change: transform, opacity;
+}
+
+#changing-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-primary);
+  transition: width 0.5s ease;
+}
+
+#changing-text:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  #changing-text {
+    min-height: 1.5rem;
+  }
+}
+
+/* Lightbox Styles */
+#lightbox-modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  background-color: rgba(0, 0, 0, 0.85); /* Solid dark instead of blur */
+  z-index: 50;
+  display: none; /* Hidden by default */
+  touch-action: pan-y !important;
+}
+
+#lightbox-modal.active {
+  opacity: 1;
+  visibility: visible;
+  display: flex; /* Show when active */
+}
+
+#lightbox-content {
+  cursor: grab;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+#lightbox-content:active {
+  cursor: grabbing;
+}
+
+#lightbox-image {
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+  max-width: 100%;
+  max-height: 80vh;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  will-change: transform;
+}
+
+#lightbox-image.zoomed {
+  transition: none;
+  cursor: move !important;
+}
+
+/* Thumbnail styles */
+.thumbnail {
+  width: 60px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail.active {
+  opacity: 1;
+  border-color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+.thumbnail:hover {
+  opacity: 0.9;
+}
+
+/* Zoom controls */
+#zoom-in, #zoom-out, #close-lightbox, #prev-project, #next-project {
+  transition: all 0.2s ease;
+  transform: scale(1);
+}
+
+#zoom-in:hover, #zoom-out:hover, #close-lightbox:hover, #prev-project:hover, #next-project:hover {
+  transform: scale(1.1);
+  background-color: var(--color-primary) !important;
+}
+
+/* Updated Navigation UI */
+.carousel-nav-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.carousel-nav-buttons {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-nav-help {
+  color: var(--color-secondary);
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* Improved lightbox controls for mobile */
+@media (max-width: 768px) {
+  .lightbox-controls {
+    padding: 0.5rem;
+  }
+  
+  #lightbox-title {
+    font-size: 1rem;
+  }
+  
+  #lightbox-description {
+    font-size: 0.75rem;
+  }
+  
+  .thumbnail {
+    width: 50px;
+    height: 35px;
+  }
+}
+
+/* Spinner untuk tombol submit form */
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+/* Form styling improvements */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  background-color: rgba(35, 30, 65, 0.8);
+  box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.3);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(170, 166, 195, 0.5);
+}
+
+.contact-form input:focus::placeholder,
+.contact-form textarea:focus::placeholder {
+  color: rgba(170, 166, 195, 0.3);
+}
+
+.contact-form input[type="checkbox"] {
+  cursor: pointer;
+}
+
+/* Preventing spam is important */
+input[name="_honey"] {
+  display: none !important;
+}
+
+/* Thank you page animations */
+#thank-you-page .bg-green-500.bg-opacity-20 {
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* Mobile responsive portfolio fixes */
+@media (max-width: 768px) {
+  /* Portfolio items */
+  .portfolio-item {
+    min-width: 80vw !important;
+    max-width: 85vw !important;
+    margin-right: 16px;
+  }
+  
+  /* Ensure images are displayed properly */
+  .portfolio-item .image-container {
+    height: 180px;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .portfolio-item .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  /* Carousel spacing and controls */
+  #portfolio-carousel {
+    padding: 0 0 20px 0 !important;
+    margin: 0 !important;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Position navigation buttons properly */
+  .carousel-nav-button {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    z-index: 50;
+    opacity: 0.9;
+    background-color: rgba(30, 30, 50, 0.7) !important;
+  }
+  
+  /* Make touch targets larger */
+  .view-button {
+    padding: 12px 20px;
+    font-size: 16px;
+  }
+}
+
+/* Project title indicator */
+.project-title-indicator {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-white-100);
+  margin: 1rem 0;
+  padding: 0.5rem;
+  background-color: rgba(20, 20, 40, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  min-height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .project-title-indicator {
+    font-size: 1rem;
+    max-width: 90%;
+    margin: 0.75rem auto;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Portofolio counter dengan gradient */
+.portfolio-counter {
+  font-size: 0.875rem;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  background: linear-gradient(to right, #4361ee, #7209b7);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 50%;
+  bottom: -30px;
+  transform: translateX(-50%);
+  transition: all 0.3s ease;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .portfolio-counter {
+    display: block;
+    text-align: center;
+    bottom: -25px;
+    font-size: 0.75rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Certificate Button Styles */
+.certificate-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certificate-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: all 0.6s ease;
+}
+
+.certificate-button:hover::before {
+  left: 100%;
+}
+
+.certificate-button:active {
+  transform: scale(0.95) !important;
+}
+
+@media (max-width: 768px) {
+  .certificate-button {
+    width: 90%;
+    margin-bottom: 8px;
+    padding: 10px;
+    justify-content: center;
+    font-size: 14px;
+  }
+  
+  .certificate-button svg {
+    min-width: 20px;
+  }
+}
+
+/* Fixed text-related styling for Safari mobile */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  _::-webkit-full-page-media, _:future, :root .portfolio-counter,
+  _::-webkit-full-page-media, _:future, :root .project-title-indicator {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Indonesia time display */
+#indonesia-time {
+  background: linear-gradient(to right, rgba(76, 110, 245, 0.1), rgba(76, 110, 245, 0.3), rgba(76, 110, 245, 0.1));
+  padding: 6px 16px;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 0 auto 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+#indonesia-time:hover {
+  background: linear-gradient(to right, rgba(76, 110, 245, 0.2), rgba(76, 110, 245, 0.4), rgba(76, 110, 245, 0.2));
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+#time-display {
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+#day-name, #month-name {
+  font-weight: 500;
+}
+
+#date-num, #year-num {
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  #indonesia-time {
+    font-size: 0.95rem;
+    padding: 5px 12px;
+  }
+}
+
+/* Language switcher */
+.language-switcher {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 40; /* Turunkan z-index agar tidak menutupi lightbox controls */
+  display: flex;
+  background-color: rgba(21, 20, 50, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 30px;
+  padding: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Meningkatkan z-index untuk tombol close di lightbox */
+#close-lightbox {
+  z-index: 60 !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CV Modal Styles */
+#cv-modal {
+  padding: 0 1rem;
+}
+
+#cv-modal-content {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(76, 110, 245, 0.2);
+  max-height: calc(100vh - 2rem);
+  margin: auto;
+}
+
+@media (max-width: 768px) {
+  #cv-modal {
+    align-items: flex-start;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  #cv-modal-content {
+    max-height: calc(100vh - 4rem);
+    margin: 0 auto;
+  }
+} 

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /gamer-site
+Disallow: /login
+Disallow: /dashboard
+
+Sitemap: https://aufer.site/sitemap.xml
